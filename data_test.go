@@ -1,9 +1,9 @@
 package simplifier
 
-func GetTestData() ([][]float64, [][]float64, [][]float64) {
+func GetTestData() ([][2]float64, [][2]float64, [][2]float64) {
 	//computed eith original Simplify.js
 	//tol 5, false
-	Simplified_5F := [][]float64{
+	Simplified_5F := [][2]float64{
 		{224.55, 250.15},
 		{267.76, 213.81},
 		{296.91, 155.64},
@@ -40,7 +40,7 @@ func GetTestData() ([][]float64, [][]float64, [][]float64) {
 	}
 
 	//tol 3, true
-	Simplified_3T := [][]float64{
+	Simplified_3T := [][2]float64{
 		{224.55, 250.15},
 		{234.98, 236.06},
 		{267.76, 213.81},
@@ -89,7 +89,7 @@ func GetTestData() ([][]float64, [][]float64, [][]float64) {
 		{866.36, 480.77},
 	}
 
-	Original := [][]float64{
+	Original := [][2]float64{
 		{224.55, 250.15},
 		{226.91, 244.19},
 		{233.31, 241.45},

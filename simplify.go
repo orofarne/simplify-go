@@ -19,13 +19,13 @@ func (s *Stack) Pop() int {
 
 //-------------------------------------------------------
 
-func getSqDist(p1, p2 []float64) float64 {
+func getSqDist(p1, p2 [2]float64) float64 {
 	dx := p1[0] - p2[0]
 	dy := p1[1] - p2[1]
 	return dx*dx + dy*dy
 }
 
-func getSqSegDist(p, p1, p2 []float64) float64 {
+func getSqSegDist(p, p1, p2 [2]float64) float64 {
 	x := p1[0]
 	y := p1[1]
 	dx := p2[0] - x
@@ -45,10 +45,10 @@ func getSqSegDist(p, p1, p2 []float64) float64 {
 	return dx*dx + dy*dy
 }
 
-func simplifyRadialDist(points [][]float64, sqTolerance float64) [][]float64 {
+func simplifyRadialDist(points [][2]float64, sqTolerance float64) [][2]float64 {
 	prevPoint := points[0]
-	newPoints := [][]float64{prevPoint}
-	var point []float64
+	newPoints := [][2]float64{prevPoint}
+	var point [2]float64
 	for i := 1; i < len(points); i++ {
 		point = points[i]
 		if getSqDist(point, prevPoint) > sqTolerance {
@@ -63,13 +63,13 @@ func simplifyRadialDist(points [][]float64, sqTolerance float64) [][]float64 {
 	return newPoints
 }
 
-func simplifyDouglasPeucker(points [][]float64, sqTolerance float64) [][]float64 {
+func simplifyDouglasPeucker(points [][2]float64, sqTolerance float64) [][2]float64 {
 	var l = len(points)
 	markers := make([]int, l)
 	first := 0
 	last := l - 1
 	var stack Stack
-	var newPoints [][]float64
+	var newPoints [][2]float64
 	i, index := 0, 0
 	maxSqDist, sqDist := float64(0), float64(0)
 	markers[first], markers[last] = 1, 1
@@ -113,12 +113,12 @@ func checkArrIndex(arr []int, index int) bool {
 	}
 }
 
-func Simplify(points [][]float64, tolerance float64, highestQuality bool) [][]float64 {
+func Simplify(points [][2]float64, tolerance float64, highestQuality bool) [][2]float64 {
 	if len(points) <= 1 {
 		return points
 	}
 	sqTolerance := tolerance * tolerance
-	var _points [][]float64
+	var _points [][2]float64
 	if highestQuality {
 		_points = points
 	} else {
@@ -129,7 +129,7 @@ func Simplify(points [][]float64, tolerance float64, highestQuality bool) [][]fl
 }
 
 //-------------------------------
-func CompareSlices(p1, p2 [][]float64) bool {
+func CompareSlices(p1, p2 [][2]float64) bool {
 	if len(p1) == len(p2) {
 		for i := range p1 {
 			if !ComparePoints(p1[i], p2[i]) {
@@ -142,7 +142,7 @@ func CompareSlices(p1, p2 [][]float64) bool {
 	}
 }
 
-func ComparePoints(p1, p2 []float64) bool {
+func ComparePoints(p1, p2 [2]float64) bool {
 	if p1[0] == p2[0] && p1[1] == p2[1] {
 		return true
 	} else {
